@@ -51,3 +51,15 @@ def productosAdd(request):
             context = {'productos': productos, 'mensaje': mensaje}
             return render(request, 'tienda/productos_list.html', context)
         
+def productos_findEdit(request, pk):
+    if pk != "":
+        producto = Producto.objects.get(id_producto = pk)
+        categorias = Categoria.objects.all()
+
+        context = {'producto': producto, 'categorias': categorias}
+
+        if producto:
+            return render(request, 'tienda/productos_edit.html', context)
+        else:
+            context = {'mensaje': 'Producto no encontrado'}
+            return render(request, 'tienda/productos_edit.html', context)
