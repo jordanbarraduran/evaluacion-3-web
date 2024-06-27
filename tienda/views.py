@@ -35,3 +35,19 @@ def productosAdd(request):
         obj.save()
         context = {'mensaje': 'Producto agregado'}
         return render(request, 'tienda/productos_add.html', context)
+    
+    def productos_del(request, pk):
+        context = {}
+        try:
+            producto = Producto.objects.get(id_producto = pk)
+            producto.delete()
+            mensaje = 'Producto eliminado'
+            productos = Producto.objects.all()
+            context = {'productos': productos, 'mensaje': mensaje}
+            return render(request, 'tienda/productos_list.html', context)
+        except:
+            mensaje = 'Producto no encontrado'
+            productos = Producto.objects.all()
+            context = {'productos': productos, 'mensaje': mensaje}
+            return render(request, 'tienda/productos_list.html', context)
+        
