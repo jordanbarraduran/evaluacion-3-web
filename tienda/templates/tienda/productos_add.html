@@ -24,10 +24,11 @@
     <form action="productosAdd" method="post">
       {% csrf_token %}
 
-      <pre>ID Producto:</pre>
-      <pre>Nombre:</pre>
-      <pre>Descripción:</pre>
-      <pre>Precio:</pre>
+      <pre>ID Producto: <input type="text" name="id_producto"></pre>
+      <pre>Nombre: <input type="text" name="nombre"></pre>
+      <pre>Descripción: <input type="text" name="descripcion"></pre>
+      <pre>Precio: <input type="number" name="precio"></pre>
+      <pre>Stock: <input type="number" name="stock"></pre>
       <pre>Categoría: <select name="categoria">
         {% for categoria in categorias %}
           <option value="{{categoria.id_categoria}}">{{categoria.categoria}}</option>
