@@ -11,3 +11,9 @@ def crud(request):
     productos = Producto.objects.all()
     context = {'productos': productos}
     return render(request, 'tienda/productos_list.html', context)
+
+def productosAdd(request):
+    if request.method is not 'POST':
+        categorias = Categoria.objects.all()
+        context = {'categorias': categorias}
+        return render(request, 'tienda/productos_add.html', context)
