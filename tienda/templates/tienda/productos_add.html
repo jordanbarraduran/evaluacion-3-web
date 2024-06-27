@@ -21,7 +21,7 @@
   <div style="text-align: center;">
     <h1>Añadir producto</h1>
 
-    <form action="productosAdd" method="post">
+    <form action="{% url 'productosAdd' %}" method="post">
       {% csrf_token %}
 
       <pre>ID Producto: <input type="text" name="id_producto"></pre>

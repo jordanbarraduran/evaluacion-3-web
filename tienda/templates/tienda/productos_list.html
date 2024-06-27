@@ -37,6 +37,7 @@
       <th>Descripción</th>
       <th>Categoría</th>
       <th>Precio</th>
+      <th>Stock</th>
       <th>Modificar</th>
       <th>Eliminar</th>
       {% for x in productos %}
@@ -46,6 +47,7 @@
           <td>{{x.descripcion}}</td>
           <td>{{x.id_categoria}}</td>
           <td>{{x.precio}}</td>
+          <td>{{x.stock}}</td>
           <td><a href="{% url 'productos_findEdit' pk=x.id_producto %}">Modificar</a></td>
           <td><a href="{% url 'productos_del' pk=x.id_producto %}">Eliminar</a></td>
         </tr>

@@ -20,7 +20,7 @@
   
   <div style="text-align: center;">
     {% if producto %}
-      <h1>Añadir producto</h1>
+      <h1>Editar producto</h1>
 
       <form action="{% url 'productosUpdate'%}" method="post">
         {% csrf_token %}

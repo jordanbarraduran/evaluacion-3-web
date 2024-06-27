@@ -15,25 +15,27 @@ def crud(request):
     return render(request, 'tienda/productos_list.html', context)
 
 def productosAdd(request):
-    if request.method is not 'POST':
+    if request.method != 'POST':
         categorias = Categoria.objects.all()
         context = {'categorias': categorias}
         return render(request, 'tienda/productos_add.html', context)
     else:
-        id = request.POST['id_producto']
-        nombre = request.POST['nombre']
-        descripcion = request.POST['descripcion']
-        precio = request.POST['precio']
-        stock = request.POST['stock']
-        categoria = request.POST['categoria']
+        id_producto = request.POST.get('id_producto')
+        nombre = request.POST.get('nombre')
+        descripcion = request.POST.get('descripcion')
+        precio = request.POST.get('precio')
+        stock = request.POST.get('stock')
+        categoria_id = request.POST.get('categoria')
 
-        objCategoria = Categoria.objects.get(id_categoria = id)
-        obj = Producto.objects.create(  id_producto = id, 
-                                        nombre = nombre, 
-                                        descripcion = descripcion, 
-                                        precio = precio,
-                                        stock = stock, 
-                                        categoria = objCategoria)
+        objCategoria = Categoria.objects.get(id_categoria = categoria_id)
+        obj = Producto(
+                    id_producto=id_producto,
+                    nombre=nombre,
+                    descripcion=descripcion,
+                    precio=precio,
+                    stock=stock,
+                    id_categoria=objCategoria
+                )
         obj.save()
         context = {'mensaje': 'Producto agregado'}
         return render(request, 'tienda/productos_add.html', context)
@@ -68,17 +70,17 @@ def productos_findEdit(request, pk):
         
 def productosUpdate(request):
     if request.method == 'POST':
-        id_producto = request.POST['id_producto']
-        nombre = request.POST['nombre']
-        descripcion = request.POST['descripcion']
-        precio = request.POST['precio']
-        stock = request.POST['stock']
-        categoria = request.POST['categoria']
+        id_producto = request.POST.get('id_producto')
+        nombre = request.POST.get('nombre')
+        descripcion = request.POST.get('descripcion')
+        precio = request.POST.get('precio')
+        stock = request.POST.get('stock')
+        categoria_id = request.POST.get('categoria')
 
-        objCategoria = Categoria.objects.get(id_categoria = categoria)
 
-        producto = Producto()
-        producto.id_producto = id_producto
+        objCategoria = Categoria.objects.get(id_categoria = categoria_id)
+
+        producto = Producto.objects.get(id_producto=id_producto)
         producto.nombre = nombre
         producto.descripcion = descripcion
         producto.precio = precio
