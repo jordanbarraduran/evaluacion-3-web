@@ -65,4 +65,29 @@ def productos_findEdit(request, pk):
             return render(request, 'tienda/productos_edit.html', context)
         
 def productosUpdate(request):
-    
+    if request.method == 'POST':
+        id_producto = request.POST['id_producto']
+        nombre = request.POST['nombre']
+        descripcion = request.POST['descripcion']
+        precio = request.POST['precio']
+        stock = request.POST['stock']
+        categoria = request.POST['categoria']
+
+        objCategoria = Categoria.objects.get(id_categoria = categoria)
+
+        producto = Producto()
+        producto.id_producto = id_producto
+        producto.nombre = nombre
+        producto.descripcion = descripcion
+        producto.precio = precio
+        producto.stock = stock
+        producto.categoria = objCategoria
+        producto.save()
+
+        categorias = Categoria.objects.all()
+        context = {'producto': producto, 'categorias': categorias, 'mensaje': 'Producto actualizado'}
+        return render(request, 'tienda/productos_edit.html', context)
+    else:
+        producto = Producto.objects.all()
+        context = {'productos': productos}
+        return render(request, 'tienda/productos_edit.html', context)
