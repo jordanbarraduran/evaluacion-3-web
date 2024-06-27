@@ -17,3 +17,4 @@ def productosAdd(request):
         categorias = Categoria.objects.all()
         context = {'categorias': categorias}
         return render(request, 'tienda/productos_add.html', context)
+    
