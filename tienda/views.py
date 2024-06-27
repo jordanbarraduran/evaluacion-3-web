@@ -63,3 +63,6 @@ def productos_findEdit(request, pk):
         else:
             context = {'mensaje': 'Producto no encontrado'}
             return render(request, 'tienda/productos_edit.html', context)
+        
+def productosUpdate(request):
+    
