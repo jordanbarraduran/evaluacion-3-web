@@ -7,4 +7,7 @@ class CategoriaForm(ModelForm):
     class Meta:
         model = Categoria
         fields = "__all__"
+        labels = {
+            'categoria':'Categoría',
+        }
         

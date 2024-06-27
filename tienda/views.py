@@ -1,6 +1,8 @@
 from django.shortcuts import render
-
+from django.http import HttpResponseRedirect
 from .models import Producto, Categoria
+
+from .forms import CategoriaForm
 
 # Create your views here.
 def inicio(request):
@@ -92,7 +94,67 @@ def productosUpdate(request):
         context = {'productos': productos}
         return render(request, 'tienda/productos_edit.html', context)
     
-    def crud_categoria(request):
+def crud_categorias(request):
+    categorias = Categoria.objects.all()
+    context = {'categorias': categorias}
+    return render(request, 'tienda/categorias_list.html', context)
+    
+def categoriasAdd(request):
+    context = {}
+    
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            form = CategoriaForm()
+            context = {'mensaje': 'Categoria agregada', 'form': form}
+        else:
+            context = {'form': form}
+        
+        return render(request, 'tienda/categorias_add.html', context)
+    else:
+        form = CategoriaForm()
+        context = {'form': form}
+        return render(request, 'tienda/categorias_add.html', context)
+
+
+def categorias_del(request, pk):
+    mensajes = []
+    errores = []
+    categorias = Categoria.objects.all()
+
+    try:
+        categoria = Categoria.objects.get(id_categoria = pk)
+        context = {}
+        if categoria:
+            categoria.delete()
+            mensajes.append('Categoria eliminada')
+            context = {'categorias': categorias, 'mensajes': mensajes, 'errores': errores}
+            return render(request, 'tienda/categorias_list.html', context)
+    except:
         categorias = Categoria.objects.all()
-        context = {'categorias': categorias}
+        mensaje = 'Categoria no encontrada'
+        context = {'categorias': categorias, 'mensaje': mensaje}
+        return render(request, 'tienda/categorias_list.html', context)
+    
+def categorias_edit(request, pk):
+    try:
+        categoria = Categoria.objects.get(id_categoria = pk)
+        context = {}
+        if categoria:
+            if request.method == 'POST':
+                form = CategoriaForm(request.POST, instance=categoria)
+                form.save()
+                mensaje = 'Categoria actualizada'
+                context = {'categoria': categoria, 'form': form, 'mensaje': mensaje}
+                return render(request, 'tienda/categorias_edit.html', context)
+            else:
+                form = CategoriaForm(instance=categoria)
+                mensaje = ''
+                context = {'categoria': categoria, 'form': form, 'mensaje': mensaje}
+                return render(request, 'tienda/categorias_edit.html', context)
+    except:
+        categorias = Categoria.objects.all()
+        mensaje = 'Categoria no encontrada'
+        context = {'categorias': categorias, 'mensaje': mensaje}
         return render(request, 'tienda/categorias_list.html', context)
