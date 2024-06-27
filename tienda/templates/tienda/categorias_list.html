@@ -17,11 +17,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-  <h1>Editar datos del producto</h1>
+  <h1>Editar datos de las categorías</h1>
   <br>
 
   <button type="button">
-    <a href="{% url 'productosAdd' %}"> Agregar </a>
+    <a href="{% url 'categoriasAdd' %}"> Agregar </a>
   </button>
 
   <div id="idMensajes">
@@ -31,23 +31,15 @@
   </div>
 
   <table>
-    {% if productos %}
-      <th>ID</th>
-      <th>Nombre</th>
-      <th>Descripción</th>
+    {% if categorias %}
       <th>Categoría</th>
-      <th>Precio</th>
       <th>Modificar</th>
       <th>Eliminar</th>
-      {% for x in productos %}
+      {% for x in categorias %}
         <tr>
-          <td>{{x.id_producto}}</td>
-          <td>{{x.nombre}}</td>
-          <td>{{x.descripcion}}</td>
-          <td>{{x.id_categoria}}</td>
-          <td>{{x.precio}}</td>
-          <td><a href="{% url 'productos_findEdit' pk=x.id_producto %}">Modificar</a></td>
-          <td><a href="{% url 'productos_del' pk=x.id_producto %}">Eliminar</a></td>
+          <td>{{x.categoria}}</td>
+          <td><a href="{% url 'generos_edit' pk=x.id_producto %}">Modificar</a></td>
+          <td><a href="{% url 'generos_del' pk=x.id_producto %}">Eliminar</a></td>
         </tr>
       {% endfor %}
     {% endif %}

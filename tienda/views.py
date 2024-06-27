@@ -91,3 +91,8 @@ def productosUpdate(request):
         productos = Producto.objects.all()
         context = {'productos': productos}
         return render(request, 'tienda/productos_edit.html', context)
+    
+    def crud_categoria(request):
+        categorias = Categoria.objects.all()
+        context = {'categorias': categorias}
+        return render(request, 'tienda/categorias_list.html', context)
