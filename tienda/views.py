@@ -36,20 +36,20 @@ def productosAdd(request):
         context = {'mensaje': 'Producto agregado'}
         return render(request, 'tienda/productos_add.html', context)
     
-    def productos_del(request, pk):
-        context = {}
-        try:
-            producto = Producto.objects.get(id_producto = pk)
-            producto.delete()
-            mensaje = 'Producto eliminado'
-            productos = Producto.objects.all()
-            context = {'productos': productos, 'mensaje': mensaje}
-            return render(request, 'tienda/productos_list.html', context)
-        except:
-            mensaje = 'Producto no encontrado'
-            productos = Producto.objects.all()
-            context = {'productos': productos, 'mensaje': mensaje}
-            return render(request, 'tienda/productos_list.html', context)
+def productos_del(request, pk):
+    context = {}
+    try:
+        producto = Producto.objects.get(id_producto = pk)
+        producto.delete()
+        mensaje = 'Producto eliminado'
+        productos = Producto.objects.all()
+        context = {'productos': productos, 'mensaje': mensaje}
+        return render(request, 'tienda/productos_list.html', context)
+    except:
+        mensaje = 'Producto no encontrado'
+        productos = Producto.objects.all()
+        context = {'productos': productos, 'mensaje': mensaje}
+        return render(request, 'tienda/productos_list.html', context)
         
 def productos_findEdit(request, pk):
     if pk != "":
@@ -81,13 +81,13 @@ def productosUpdate(request):
         producto.descripcion = descripcion
         producto.precio = precio
         producto.stock = stock
-        producto.categoria = objCategoria
+        producto.id_categoria = objCategoria
         producto.save()
 
         categorias = Categoria.objects.all()
         context = {'producto': producto, 'categorias': categorias, 'mensaje': 'Producto actualizado'}
         return render(request, 'tienda/productos_edit.html', context)
     else:
-        producto = Producto.objects.all()
+        productos = Producto.objects.all()
         context = {'productos': productos}
         return render(request, 'tienda/productos_edit.html', context)
