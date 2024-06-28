@@ -1,25 +1,178 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Florería</title>
-
-  <!--
-  <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
-  <script src="{% static 'js/main.js' %}"></script>
-  -->
-
-  <!-- BootStrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-</head>
-<body>
-  <h1>Hola</h1>
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/0516098ee6.js" crossorigin="anonymous"></script>
+
+  <!-- Ionicons -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
   
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <!-- Estilos CSS -->
+  <link rel="stylesheet" href="{% static 'tienda/css/estilos.css' %}">
+</head>
+
+<body data-bs-theme="dark">
+  <!-- Navbar -->
+  <div id="navegacion">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbarPrincipal">
+      <div class="container-fluid d-flex flex-row">
+        <a class="navbar-brand" href="indice.html">Florería <i class="fa-solid fa-leaf" style="color: #ffffff;"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="#" id="link-maceteros">🪴 Maceteros</a>
+            <a class="nav-link active" href="#" id="link-sustratos">✨ Sustratos</a>
+            <a class="nav-link active" href="#" id="link-flores">🌺 Flores</a>
+            <a class="nav-link active" href="#" id="link-arbustos">🌳 Arbustos</a>
+            <a class="nav-link active" href="#" id="link-carrito"><i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i> <b>Carrito</b></a>
+        </div>
+        <div class="navbar-nav ms-auto">
+          <button type="button" class="btn btn-dark btn-navbar" id="btn-tema"><i class="bi bi-brightness-alt-high-fill" id="toggler-tema"></i></button>
+          <button type="button" class="btn btn-dark btn-navbar"><a class="text-formulario" href="iniciosesion.html" id="link-iniciar-sesion">Iniciar sesión</a></button>
+          <button type="button" class="btn btn-dark btn-navbar"><a class="text-formulario" href="registro.html" id="link-registrarse">Registrarse</a></button>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Contenido -->
+  <div class="container-extend-lg" id="contenido"> <!-- Aquí se cargará el contenido de las páginas -->
+    <div class="container">
+      <br>
+      <h2 class="text-center">🌷 ¡Bienvenido a la florería! 🌷</h2>
+      <h3>😊 ¿Quiénes somos?</h3>
+      <p>Somos una florería que se dedica a la venta de plantas, flores, arbustos, sustratos y maceteros. Nuestro objetivo es ofrecer productos de calidad a precios accesibles, para que puedas embellecer tu hogar, jardín o espacio de trabajo con plantas y flores de todo tipo.</p>
+      <h3>✨ Productos destacados</h3>
+      <p>En nuestra florería encontrarás una gran variedad de productos, entre los que destacan:</p>
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <img src="https://laderasur.com/wp-content/uploads/2024/01/a-knop.jpg" class="card-img-top" alt="...">
+              <h5 class="card-title">Hydrangea macrophylla - Hortensia</h5>
+              <h6 class="card-subtitle mb-2 text-muted">$16.990</h6>
+              <p class="card-text">Planta perenne de hoja caduca que aporta un estallido de color y elegancia a cualquier jardín.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTN_0iK99D9hJQYHSTn0dqOq-g6UI7rjgBweNBVvPwOs9TKnmEo2WudICFT-jyiAUxqCqgktshg34PcSuQBxZrTFH8UA4cBZ_hw_PjyKMA&usqp=CAE" class="card-img-top" alt="...">
+              <h5 class="card-title">Bulbos de Jacintos</h5>
+              <h6 class="card-subtitle mb-2 text-muted">$8.990</h6>
+              <p class="card-text">Planta bulbos rojos de jacinto en tu casa y disfruta el espectáculo cuando florecen en primavera!  </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="carouselExampleIndicators" class="carousel slide">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img id="carouselImages" src="https://images.unsplash.com/photo-1477511801984-4ad318ed9846?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img id="carouselImages" src="https://images.unsplash.com/photo-1595251742237-3f6a7ee4131d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img id="carouselImages" src="https://images.unsplash.com/photo-1521334884684-d80222895322?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img id="carouselImages" src="https://images.unsplash.com/photo-1611843467160-25afb8df1074?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+  </div> <!-- Fin del contenido -->
+
+  <!-- Footer -->
+  <div id="footer" style="margin-top: 200px;">
+    <!-- Pie de pagina -->
+    <footer class="footer">
+      <ul class="social-icon">
+        <li class="icon-elem">
+          <a href="https://github.com/Lala-Banana/Prueba-2-Progra-Web" class="icon">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </a>
+        </li>
+        <li class="icon-elem">
+          <a href="https://github.com/Lala-Banana/Prueba-2-Progra-Web" class="icon">
+            <ion-icon name="logo-youtube"></ion-icon>
+          </a>
+        </li>
+        <li class="icon-elem">
+          <a href="https://github.com/Lala-Banana/Prueba-2-Progra-Web" class="icon">
+            <ion-icon name="logo-github"></ion-icon>
+          </a>
+        </li>
+      </ul>
+      <ul class="menu">
+        <li class="menu-elem">
+          <a href="https://github.com/Lala-Banana/Prueba-2-Progra-Web" class="menu-icon">Contacto</a>
+        </li>
+        <li class="menu-elem">
+          <a href="https://github.com/Lala-Banana/Prueba-2-Progra-Web" class="menu-icon">Equipo</a>
+        </li>
+        <li class="menu-elem">
+          <a href="indice.html" class="menu-icon">Inicio</a>
+        </li>
+      </ul>
+      <p class="text-footer">@2024 | Todos los derechos reservados</p>
+    </footer>
+  </div>
+
+  <!-- Librerías JS -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/validaciones.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function () {
+    // cambiar data-bs-theme con toggle
+    $('#btn-tema').on('click', function () {
+      // cambiar en click si es light a dark y viceversa
+      if ($('body').attr('data-bs-theme') == 'light') {
+        $('body').attr('data-bs-theme', 'dark');
+        $('#toggler-tema').removeClass('bi-brightness-alt-high-fill').addClass('bi-moon-fill');
+      } else {
+        $('body').attr('data-bs-theme', 'light');
+        $('#toggler-tema').removeClass('bi-moon-fill').addClass('bi-brightness-alt-high-fill');    
+      }});
+    });
+  </script>
 </body>
+
 </html>
