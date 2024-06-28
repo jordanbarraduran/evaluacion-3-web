@@ -27,21 +27,25 @@
   <div id="navegacion">
     <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbarPrincipal">
       <div class="container-fluid d-flex flex-row">
-        <a class="navbar-brand" href="indice.html">Florería <i class="fa-solid fa-leaf"></i></a>
+        <a class="navbar-brand" href="{% url 'inicio' %}">Florería <i class="fa-solid fa-leaf"></i></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
           aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="#" id="link-maceteros">🌺🪴 Productos ✨🌳</a>
-            <a class="nav-link active" href="#" id="link-sustratos">⚙️ CRUD</a>
-            <a class="nav-link active" href="#" id="link-carrito"><i class="fa-solid fa-cart-shopping"></i> <b>Carrito</b></a>
+            <a class="nav-link active" aria-current="page" href="{% url 'productos_list' %}" id="link-maceteros">🌺🪴 Productos ✨🌳</a>
+            <a class="nav-link active" href="#" id="link-carrito"><i class="fa-solid fa-cart-shopping"></i> Carrito</a>
         </div>
         <div class="navbar-nav ms-auto">
-          <button type="button" class="btn btn-dark btn-navbar" id="btn-tema"><i class="bi bi-brightness-high-fill" id="toggler-tema"></i></button>
+          <button type="button" class="btn btn-navbar" id="btn-tema"><i class="bi bi-brightness-high-fill" id="toggler-tema"></i></button>
+          <a class="nav-link active" href="#">⚙️ CRUD Productos</a>
+          <a class="nav-link active" href="#">⚙️ CRUD Categorías</a>
+            
+          <!--  
           <button type="button" class="btn btn-dark btn-navbar"><a class="text-formulario" href="iniciosesion.html" id="link-iniciar-sesion">Iniciar sesión</a></button>
           <button type="button" class="btn btn-dark btn-navbar"><a class="text-formulario" href="registro.html" id="link-registrarse">Registrarse</a></button>
+          -->
         </div>
       </div>
     </nav>
