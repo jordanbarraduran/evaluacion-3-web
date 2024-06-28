@@ -1,101 +1,67 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
-from .models import Producto, Categoria
-
-from .forms import CategoriaForm
+from .models import Categoria, TestProducto
+from .forms import CategoriaForm, TestProductoForm
 
 # Create your views here.
+def productos_list(request):
+    productos = TestProducto.objects.all()
+    context = {'productos': productos}
+    return render(request, 'tienda/productos_list.html', context)
+    
+def modificar_producto(request, pk):
+    #with ModelForm TestProductoForm and using pk, and Categorias
+    context = {}
+    try:
+        producto = get_object_or_404(TestProducto, id_producto=pk)
+        if request.method == 'POST':
+            form = TestProductoForm(request.POST, instance=producto)
+            if form.is_valid():
+                form.save()
+                context['mensaje'] = 'Producto actualizado'
+            else:
+                context['mensaje'] = 'Formulario no válido'
+        else:
+            form = TestProductoForm(instance=producto)
+        context['form'] = form
+        context['producto'] = producto
+    except:
+        context['mensaje'] = 'Producto no encontrado'
+        context['producto'] = None
+    return render(request, 'tienda/productos_edit.html', context)
+
+def eliminar_producto(request, pk):
+    context = {}
+    try:
+        producto = get_object_or_404(TestProducto, id_producto=pk)
+        producto.delete()
+        context['mensaje'] = 'Producto eliminado'
+    except:
+        context['mensaje'] = 'Producto no encontrado'
+
+    test_productos = TestProducto.objects.all()
+    context['productos'] = test_productos
+    return render(request, 'tienda/productos_list.html', context)
+
+def add_producto(request):
+    if request.method == 'POST':
+        form = TestProductoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            form = TestProductoForm()
+            context = {'mensaje': 'Producto agregado', 'form': form}
+        else:
+            context = {'form': form}
+    else:
+        form = TestProductoForm()
+        context = {'form': form}
+
+    return render(request, 'tienda/productos_add.html', context)
+
 def inicio(request):
     context = {}
     return render(request, 'tienda/inicio.html', context)
 
-def crud(request):
-    productos = Producto.objects.all()
-    context = {'productos': productos}
-    return render(request, 'tienda/productos_list.html', context)
-
-def productosAdd(request):
-    if request.method != 'POST':
-        categorias = Categoria.objects.all()
-        context = {'categorias': categorias}
-        return render(request, 'tienda/productos_add.html', context)
-    else:
-        id_producto = request.POST.get('id_producto')
-        nombre = request.POST.get('nombre')
-        descripcion = request.POST.get('descripcion')
-        precio = request.POST.get('precio')
-        stock = request.POST.get('stock')
-        categoria_id = request.POST.get('categoria')
-
-        objCategoria = Categoria.objects.get(id_categoria = categoria_id)
-        obj = Producto(
-                    id_producto=id_producto,
-                    nombre=nombre,
-                    descripcion=descripcion,
-                    precio=precio,
-                    stock=stock,
-                    id_categoria=objCategoria
-                )
-        obj.save()
-        context = {'mensaje': 'Producto agregado'}
-        return render(request, 'tienda/productos_add.html', context)
-    
-def productos_del(request, pk):
-    context = {}
-    try:
-        producto = Producto.objects.get(id_producto = pk)
-        producto.delete()
-        mensaje = 'Producto eliminado'
-        productos = Producto.objects.all()
-        context = {'productos': productos, 'mensaje': mensaje}
-        return render(request, 'tienda/productos_list.html', context)
-    except:
-        mensaje = 'Producto no encontrado'
-        productos = Producto.objects.all()
-        context = {'productos': productos, 'mensaje': mensaje}
-        return render(request, 'tienda/productos_list.html', context)
-        
-def productos_findEdit(request, pk):
-    if pk != "":
-        producto = Producto.objects.get(id_producto = pk)
-        categorias = Categoria.objects.all()
-
-        context = {'producto': producto, 'categorias': categorias}
-
-        if producto:
-            return render(request, 'tienda/productos_edit.html', context)
-        else:
-            context = {'mensaje': 'Producto no encontrado'}
-            return render(request, 'tienda/productos_edit.html', context)
-        
-def productosUpdate(request):
-    if request.method == 'POST':
-        id_producto = request.POST.get('id_producto')
-        nombre = request.POST.get('nombre')
-        descripcion = request.POST.get('descripcion')
-        precio = request.POST.get('precio')
-        stock = request.POST.get('stock')
-        categoria_id = request.POST.get('categoria')
-
-
-        objCategoria = Categoria.objects.get(id_categoria = categoria_id)
-
-        producto = Producto.objects.get(id_producto=id_producto)
-        producto.nombre = nombre
-        producto.descripcion = descripcion
-        producto.precio = precio
-        producto.stock = stock
-        producto.id_categoria = objCategoria
-        producto.save()
-
-        categorias = Categoria.objects.all()
-        context = {'producto': producto, 'categorias': categorias, 'mensaje': 'Producto actualizado'}
-        return render(request, 'tienda/productos_edit.html', context)
-    else:
-        productos = Producto.objects.all()
-        context = {'productos': productos}
-        return render(request, 'tienda/productos_edit.html', context)
-    
 def crud_categorias(request):
     categorias = Categoria.objects.all()
     context = {'categorias': categorias}

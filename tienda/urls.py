@@ -4,14 +4,13 @@ from . import views
 urlpatterns = [
     path('inicio', views.inicio, name='inicio'),
 
-    path('crud', views.crud, name='crud'),
-    path('productosAdd', views.productosAdd, name='productosAdd'),
-    path('productos_del/<str:pk>', views.productos_del, name='productos_del'),
-    path('productos_findEdit/<str:pk>', views.productos_findEdit, name='productos_findEdit'),
-    path('productosUpdate', views.productosUpdate, name='productosUpdate'),
-
     path('crud_categorias', views.crud_categorias, name='crud_categorias'),
     path('categoriasAdd', views.categoriasAdd, name='categoriasAdd'),
     path('categorias_del/<str:pk>', views.categorias_del, name='categorias_del'),
     path('categorias_Edit/<str:pk>', views.categorias_edit, name='categorias_edit'),
+
+    path('productos_list/', views.productos_list, name='productos_list'),
+    path('modificar_producto/<int:pk>/', views.modificar_producto, name='modificar_producto'),
+    path('eliminar_producto/<int:pk>/', views.eliminar_producto, name='eliminar_producto'),
+    path('add_producto/', views.add_producto, name='add_producto'),
 ]
