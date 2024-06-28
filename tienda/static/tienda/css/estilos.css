@@ -120,9 +120,6 @@ table {
     border-collapse: collapse;
 }
 th, td {
-    padding: 35px;
+    padding: 20px;
     border-bottom: 1px solid #ddd;
-}
-th {
-    background-color: #f2f2f2;
 }
