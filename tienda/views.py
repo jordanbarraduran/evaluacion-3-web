@@ -1,16 +1,16 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
-from .models import Categoria, TestProducto
+from .models import Categoria, Producto
 from .forms import CategoriaForm, TestProductoForm
 
 # Create your views here.
 def productos_comprar(request):
-    productos = TestProducto.objects.all()
+    productos = Producto.objects.all()
     context = {'productos': productos}
     return render(request, 'tienda/productos_comprar.html', context)
 
 def productos_list(request):
-    productos = TestProducto.objects.all()
+    productos = Producto.objects.all()
     context = {'productos': productos}
     return render(request, 'tienda/productos_list.html', context)
     
@@ -18,7 +18,7 @@ def modificar_producto(request, pk):
     #with ModelForm TestProductoForm and using pk, and Categorias
     context = {}
     try:
-        producto = get_object_or_404(TestProducto, id_producto=pk)
+        producto = get_object_or_404(Producto, id_producto=pk)
         if request.method == 'POST':
             form = TestProductoForm(request.POST, instance=producto)
             if form.is_valid():
@@ -38,13 +38,13 @@ def modificar_producto(request, pk):
 def eliminar_producto(request, pk):
     context = {}
     try:
-        producto = get_object_or_404(TestProducto, id_producto=pk)
+        producto = get_object_or_404(Producto, id_producto=pk)
         producto.delete()
         context['mensaje'] = 'Producto eliminado'
     except:
         context['mensaje'] = 'Producto no encontrado'
 
-    test_productos = TestProducto.objects.all()
+    test_productos = Producto.objects.all()
     context['productos'] = test_productos
     return render(request, 'tienda/productos_list.html', context)
 
