@@ -4,6 +4,11 @@ from .models import Categoria, TestProducto
 from .forms import CategoriaForm, TestProductoForm
 
 # Create your views here.
+def productos_comprar(request):
+    productos = TestProducto.objects.all()
+    context = {'productos': productos}
+    return render(request, 'tienda/productos_comprar.html', context)
+
 def productos_list(request):
     productos = TestProducto.objects.all()
     context = {'productos': productos}
