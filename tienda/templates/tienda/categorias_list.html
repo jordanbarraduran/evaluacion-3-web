@@ -55,11 +55,8 @@
     <div class="container">
       <h1>Editar datos de las categorías</h1>
       <br>
-    
-      <button type="button">
-        <a href="{% url 'categoriasAdd' %}"> Agregar </a>
-      </button>
-    
+      <button type="button" class="btn btn-primary"><a class="text-formulario" href="{% url 'categoriasAdd' %}">Añadir</a></button>
+      <hr>
       <div id="idMensajes">
         {% if mensaje %}
           {{mensaje}}

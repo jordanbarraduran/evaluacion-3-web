@@ -53,9 +53,10 @@
   <!-- Contenido -->
   <div class="container-extend-lg" id="contenido"> <!-- Aquí se cargará el contenido de las páginas -->
     <div class="container">
-        <h1>Test Productos Para Formulario</h1>
-        <a href="{% url 'add_producto' %}">Añadir</a>
-    
+        <h1>Tus productos</h1>
+        <br>
+        <button type="button" class="btn btn-primary"><a class="text-formulario" href="{% url 'add_producto' %}">Añadir</a></button>
+        <hr>
         {% if productos %}
             <table>
                 <tr>
