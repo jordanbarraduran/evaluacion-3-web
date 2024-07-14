@@ -7,7 +7,7 @@
 </head>
 <body>
     {% if producto %}
-        <form action="{% url 'modificar_producto' pk=producto.id_producto %}" method="post">
+        <form action="{% url 'modificar_producto' pk=producto.id_producto %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{form.as_p}}
             <input type="submit" value="Modificar">

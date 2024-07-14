@@ -20,7 +20,7 @@ def modificar_producto(request, pk):
     try:
         producto = get_object_or_404(Producto, id_producto=pk)
         if request.method == 'POST':
-            form = ProductoForm(request.POST, instance=producto)
+            form = ProductoForm(request.POST, request.FILES, instance=producto)
             if form.is_valid():
                 form.save()
                 context['mensaje'] = 'Producto actualizado'
@@ -50,7 +50,7 @@ def eliminar_producto(request, pk):
 
 def add_producto(request):
     if request.method == 'POST':
-        form = ProductoForm(request.POST)
+        form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             form = ProductoForm()
@@ -64,7 +64,8 @@ def add_producto(request):
     return render(request, 'tienda/productos_add.html', context)
 
 def inicio(request):
-    context = {}
+    productos = Producto.objects.all()
+    context = {'productos': productos}
     return render(request, 'tienda/inicio.html', context)
 
 def crud_categorias(request):

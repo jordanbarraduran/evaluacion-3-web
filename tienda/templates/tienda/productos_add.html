@@ -34,7 +34,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="{% url 'productos_list' %}" id="link-maceteros">🌺🪴 Productos ✨🌳</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'productos_comprar' %}" id="link-maceteros">🌺🪴 Productos ✨🌳</a>
             <a class="nav-link active" href="#" id="link-carrito"><i class="fa-solid fa-cart-shopping"></i> Carrito</a>
         </div>
         <div class="navbar-nav ms-auto">
@@ -54,7 +54,7 @@
   <div class="container-extend-lg" id="contenido"> <!-- Aquí se cargará el contenido de las páginas -->
     <div class="container">
       <h1>Añadir Producto</h1>
-      <form action="{% url 'add_producto' %}" method="post">
+      <form action="{% url 'add_producto' %}" method="post" enctype="multipart/form-data">
           {% csrf_token %}
           {{form.as_p}}
           <input type="submit" value="Agregar">
