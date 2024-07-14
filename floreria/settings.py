@@ -73,6 +73,8 @@ TEMPLATES = [
         },
     },
 ]
+LOGIN_REDIRECT_URL = 'inicio'
+LOGOUT_REDIRECT_URL = 'inicio'
 
 WSGI_APPLICATION = 'floreria.wsgi.application'
 

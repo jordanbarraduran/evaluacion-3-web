@@ -2,8 +2,10 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from .models import Categoria, Producto
 from .forms import CategoriaForm, ProductoForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def productos_comprar(request):
     productos = Producto.objects.all()
     context = {'productos': productos}
@@ -13,9 +15,9 @@ def productos_list(request):
     productos = Producto.objects.all()
     context = {'productos': productos}
     return render(request, 'tienda/productos_list.html', context)
-    
+
+@login_required    
 def modificar_producto(request, pk):
-    #with ModelForm TestProductoForm and using pk, and Categorias
     context = {}
     try:
         producto = get_object_or_404(Producto, id_producto=pk)
@@ -35,6 +37,7 @@ def modificar_producto(request, pk):
         context['producto'] = None
     return render(request, 'tienda/productos_edit.html', context)
 
+@login_required
 def eliminar_producto(request, pk):
     context = {}
     try:
@@ -48,6 +51,7 @@ def eliminar_producto(request, pk):
     context['productos'] = productos
     return render(request, 'tienda/productos_list.html', context)
 
+@login_required
 def add_producto(request):
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES)
@@ -63,16 +67,23 @@ def add_producto(request):
 
     return render(request, 'tienda/productos_add.html', context)
 
+# @login_required
 def inicio(request):
-    productos = Producto.objects.all()
-    context = {'productos': productos}
+    if request.user.is_authenticated:
+        usuario = request.session.get('usuario', request.user.username)
+        productos = Producto.objects.all()
+        context = {'productos': productos, 'usuario': usuario}
+    else:
+        context = {'productos': Producto.objects.all()}
     return render(request, 'tienda/inicio.html', context)
 
+@login_required
 def crud_categorias(request):
     categorias = Categoria.objects.all()
     context = {'categorias': categorias}
     return render(request, 'tienda/categorias_list.html', context)
     
+@login_required
 def categoriasAdd(request):
     context = {}
     
@@ -91,7 +102,7 @@ def categoriasAdd(request):
         context = {'form': form}
         return render(request, 'tienda/categorias_add.html', context)
 
-
+@login_required
 def categorias_del(request, pk):
     mensajes = []
     errores = []
@@ -110,7 +121,8 @@ def categorias_del(request, pk):
         mensaje = 'Categoria no encontrada'
         context = {'categorias': categorias, 'mensaje': mensaje}
         return render(request, 'tienda/categorias_list.html', context)
-    
+
+@login_required    
 def categorias_edit(request, pk):
     try:
         categoria = Categoria.objects.get(id_categoria = pk)
