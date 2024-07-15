@@ -5,7 +5,6 @@ from .forms import CategoriaForm, ProductoForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-@login_required
 def productos_comprar(request):
     productos = Producto.objects.all()
     context = {'productos': productos}

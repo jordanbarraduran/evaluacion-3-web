@@ -57,10 +57,9 @@
             </div>
           </div>
           {% else %}
-            <a href="{% url 'login' %}">Iniciar sesión</a>
+            <button type="button" class="btn btn-dark btn-navbar"><a class="text-formulario" href="{% url 'login' %}" id="link-iniciar-sesion">Iniciar sesión</a></button>
           {% endif %}
           <!--  
-          <button type="button" class="btn btn-dark btn-navbar"><a class="text-formulario" href="iniciosesion.html" id="link-iniciar-sesion">Iniciar sesión</a></button>
           <button type="button" class="btn btn-dark btn-navbar"><a class="text-formulario" href="registro.html" id="link-registrarse">Registrarse</a></button>
           -->
         </div>

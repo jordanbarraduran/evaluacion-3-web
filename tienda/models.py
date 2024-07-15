@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Categoria(models.Model):
@@ -19,3 +20,11 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+class CarritoItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.IntegerField(default=1)
+
+    def subtotal(self):
+        return self.cantidad * self.producto.precio

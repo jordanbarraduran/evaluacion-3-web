@@ -42,10 +42,25 @@
           <div class="navbar-nav ms-auto">
             <button type="button" class="btn btn-navbar" id="btn-tema"><i class="bi bi-brightness-high-fill"
                 id="toggler-tema"></i></button>
-            {% if user.is_staff %}
-              <a class="nav-link active" href="{% url 'productos_list' %}">⚙️ CRUD Productos</a>
-              <a class="nav-link active" href="{% url 'crud_categorias' %}">⚙️ CRUD Categorías</a>
-            {% endif %}
+                {% if user.is_authenticated %}
+                {% if user.is_staff %}
+                  <a class="nav-link active" href="{% url 'productos_list' %}">⚙️ CRUD Productos</a>
+                  <a class="nav-link active" href="{% url 'crud_categorias' %}">⚙️ CRUD Categorías</a>
+                {% endif %}
+                <div class="dropdown">
+                  <a class = "nav-link dropdown-toggle" href = "#" role = "button" id = "dropdownMenuLink" data-bs-toggle = "dropdown" aria-expanded = "false">
+                    {{ user.username }}
+                  </a>
+                  <div class = "dropdown-menu" aria-labelledby = "navbarDropdown">
+                    <form method="post" action="{% url 'logout' %}">
+                      {% csrf_token %}
+                      <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                    </form>
+                  </div>
+                </div>
+                {% else %}
+                  <a href="{% url 'login' %}">Iniciar sesión</a>
+                {% endif %}
             
             <!--  
           <button type="button" class="btn btn-dark btn-navbar"><a class="text-formulario" href="iniciosesion.html" id="link-iniciar-sesion">Iniciar sesión</a></button>
