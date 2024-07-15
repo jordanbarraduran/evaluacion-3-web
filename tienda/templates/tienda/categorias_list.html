@@ -35,12 +35,29 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-link active" aria-current="page" href="{% url 'productos_comprar' %}" id="link-maceteros">🌺🪴 Productos ✨🌳</a>
-            <a class="nav-link active" href="#" id="link-carrito"><i class="fa-solid fa-cart-shopping"></i> Carrito</a>
+            <a class="nav-link active" href="{% url 'ver_carrito' %}" id="link-carrito"><i class="fa-solid fa-cart-shopping"></i> Carrito</a>
         </div>
         <div class="navbar-nav ms-auto">
           <button type="button" class="btn btn-navbar" id="btn-tema"><i class="bi bi-brightness-high-fill" id="toggler-tema"></i></button>
-          <a class="nav-link active" href="{% url 'productos_list' %}">⚙️ CRUD Productos</a>
-          <a class="nav-link active" href="{% url 'crud_categorias' %}">⚙️ CRUD Categorías</a>  
+          {% if user.is_authenticated %}
+          {% if user.is_staff %}
+            <a class="nav-link active" href="{% url 'productos_list' %}">⚙️ CRUD Productos</a>
+            <a class="nav-link active" href="{% url 'crud_categorias' %}">⚙️ CRUD Categorías</a>
+          {% endif %}
+          <div class="dropdown">
+            <a class = "nav-link dropdown-toggle" href = "#" role = "button" id = "dropdownMenuLink" data-bs-toggle = "dropdown" aria-expanded = "false">
+              {{ user.username }}
+            </a>
+            <div class = "dropdown-menu" aria-labelledby = "navbarDropdown">
+              <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="dropdown-item">Cerrar sesión</button>
+              </form>
+            </div>
+          </div>
+          {% else %}
+            <button type="button" class="btn btn-dark btn-navbar"><a class="text-formulario" href="{% url 'login' %}" id="link-iniciar-sesion">Iniciar sesión</a></button>
+          {% endif %}
           <!--  
           <button type="button" class="btn btn-dark btn-navbar"><a class="text-formulario" href="iniciosesion.html" id="link-iniciar-sesion">Iniciar sesión</a></button>
           <button type="button" class="btn btn-dark btn-navbar"><a class="text-formulario" href="registro.html" id="link-registrarse">Registrarse</a></button>
@@ -63,20 +80,38 @@
         {% endif %}
       </div>
     
-      <table>
-        {% if categorias %}
-          <th>Categoría</th>
-          <th>Modificar</th>
-          <th>Eliminar</th>
-          {% for x in categorias %}
-            <tr>
-              <td>{{x.categoria}}</td>
-              <td><a href="{% url 'categorias_edit' pk=x.id_categoria %}">Modificar</a></td>
-              <td><a href="{% url 'categorias_del' pk=x.id_categoria %}">Eliminar</a></td>
-            </tr>
-          {% endfor %}
-        {% endif %}
-      </table>
+      <div class="table-responsive">
+        <table class="table table-striped">
+            {% if categorias %}
+            <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Modificar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in categorias %}
+                <tr>
+                    <td>{{ x.categoria }}</td>
+                    <td><a href="{% url 'categorias_edit' pk=x.id_categoria %}" class="btn btn-warning btn-sm">Modificar</a></td>
+                    <td>
+                        <form method="post" action="{% url 'categorias_del' pk=x.id_categoria %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            {% else %}
+            <div class="alert alert-info" role="alert">
+                No hay categorías.
+            </div>
+            {% endif %}
+        </table>
+    </div>
+    
     </div> <!-- Fin del contenido -->
 
   <!-- Footer -->

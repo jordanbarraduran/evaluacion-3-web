@@ -1,13 +1,35 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
-from .models import Categoria, Producto
+from .models import Categoria, Producto, CarritoItem
 from .forms import CategoriaForm, ProductoForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
+def agregar_al_carrito(request, producto_id):
+    producto = get_object_or_404(Producto, id_producto=producto_id)
+    carrito_item, creado = CarritoItem.objects.get_or_create(user=request.user, producto=producto)
+    if not creado:
+        carrito_item.cantidad += 1
+        carrito_item.save()
+    return redirect('ver_carrito')
+
+@login_required
+def ver_carrito(request):
+    items = CarritoItem.objects.filter(user=request.user)
+    total = sum(item.subtotal() for item in items)
+    return render(request, 'tienda/carrito.html', {'items': items, 'total': total})
+
+@login_required
+def eliminar_del_carrito(request, item_id):
+    item = get_object_or_404(CarritoItem, id=item_id, user=request.user)
+    item.delete()
+    return redirect('ver_carrito')
+
 def productos_comprar(request):
     productos = Producto.objects.all()
-    context = {'productos': productos}
+    categorias = Categoria.objects.all()
+    context = {'productos': productos, 'categorias': categorias}
     return render(request, 'tienda/productos_comprar.html', context)
 
 def productos_list(request):

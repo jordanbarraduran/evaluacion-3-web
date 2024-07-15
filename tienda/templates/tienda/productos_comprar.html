@@ -36,7 +36,7 @@
           <div class="navbar-nav">
             <a class="nav-link active" aria-current="page" href="{% url 'productos_comprar' %}" id="link-maceteros">🌺🪴
               Productos ✨🌳</a>
-            <a class="nav-link active" href="#" id="link-carrito"><i class="fa-solid fa-cart-shopping"></i> Carrito</a>
+            <a class="nav-link active" href="{% url 'ver_carrito' %}" id="link-carrito"><i class="fa-solid fa-cart-shopping"></i> Carrito</a>
           </div>
           
           <div class="navbar-nav ms-auto">
@@ -74,29 +74,50 @@
   <!-- Contenido -->
   <div class="container-extend-lg" id="contenido"> <!-- Aquí se cargará el contenido de las páginas -->
     <div class="container">
-      <h1>Nuestros productos</h1>
-      {% if productos %}
-      <div class="row">
+      <h1 class="mb-4">Nuestros productos</h1>
+<p class="mb-4">Explora nuestra amplia gama de productos. Aquí encontrarás las mejores plantas, flores y accesorios para tu hogar y jardín.</p>
 
-        {% for producto in productos %}
-        <div class="col-md-4 col-sm-10">
-          <div class="card" style="width: 18rem;">
-            <img src="{{producto.imagen.url}}" class="card-img-top" alt="{{producto.nombre}}">
-            <div class="card-body">
-              <h5 class="card-title">{{producto.nombre}}</h5>
-              <h6 class="card-subtitle mb-2 text-body-secondary">{{producto.categoria}}</h6>
-              <h6 class="card-subtitle mb-2 text-body-secondary">${{producto.precio}}</h6>
-              <p class="card-text">{{producto.descripcion}}</p>
-              <h6 class="card-subtitle mb-2 text-body-secondary">Stock: {{producto.stock}}</h6>
-              <a href="#" class="btn btn-primary">Añadir al carro</a>
-            </div>
-          </div>
-        </div>
+<!-- Buscador de productos -->
+<div class="mb-4">
+    <form method="GET" action="{% url 'productos_comprar' %}" class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Buscar productos..." aria-label="Buscar" name="q">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
+</div>
+
+<!-- Filtro por categorías -->
+<div class="mb-4">
+    <h5>Filtrar por categoría:</h5>
+    <div class="btn-group" role="group" aria-label="Filtro de categorías">
+        {% for categoria in categorias %}
+        <a href="{% url 'productos_comprar' %}?categoria={{ categoria.nombre }}" class="btn btn-outline-secondary">{{ categoria.categoria }}</a>
         {% endfor %}
-      </div>
-      {% else %}
-      <p>No hay productos</p>
-      {% endif %}
+    </div>
+</div>
+
+{% if productos %}
+<div class="row">
+    {% for producto in productos %}
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card h-100">
+            <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ producto.nombre }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ producto.categoria }}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">${{ producto.precio }}</h6>
+                <p class="card-text">{{ producto.descripcion }}</p>
+                <h6 class="card-subtitle mb-2 text-muted">Stock: {{ producto.stock }}</h6>
+                <a href="{% url 'agregar_al_carrito' producto.id_producto %}" class="btn btn-primary">Añadir al carro</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info" role="alert">
+    No hay productos.
+</div>
+{% endif %}
 
       <p id="Mensaje">{{mensaje}}</p>
     </div> <!-- Fin del contenido -->
